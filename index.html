@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>AnimeStream - Streaming Anime & Video</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Swiper Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="loader-wrapper" id="loaderWrapper">
+    <div class="loader">
+        <div class="spinner"></div>
+        <p id="loadingText">Memulai aplikasi...</p>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="logo" id="logo">
+        <i class="fas fa-tv"></i> 
+        <span>AnimeStream<span>Live</span></span>
+    </div>
+    
+    <div class="search-container">
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Cari anime atau video...">
+            <button id="searchBtn">Cari</button>
+        </div>
+    </div>
+    
+    <div class="nav-buttons">
+        <div class="storage-info" id="storageInfo">
+            <i class="fas fa-database"></i>
+            <span>Memuat...</span>
+        </div>
+        <button class="upload-btn" id="uploadBtn">
+            <i class="fas fa-upload"></i>
+            <span>Upload</span>
+        </button>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Live Player -->
+    <div class="live-section">
+        <div class="player-header">
+            <div class="player-title">
+                <i class="fas fa-play-circle"></i>
+                <span id="currentPlayingTitle">NOW PLAYING</span>
+            </div>
+            <span class="live-badge">LIVE</span>
+        </div>
+        <div class="video-wrapper">
+            <video id="mainPlayer" controls playsinline webkit-playsinline>
+                <source src="" type="video/mp4">
+                <p>Browser tidak mendukung pemutaran video.</p>
+            </video>
+        </div>
+        <div class="info-note">
+            <i class="fas fa-info-circle"></i> Klik video YouTube untuk membuka di YouTube
+        </div>
+    </div>
+
+    <!-- Trending Section -->
+    <div class="trending-section">
+        <div class="section-header">
+            <h2><i class="fas fa-fire"></i> Trending</h2>
+            <span class="section-badge">🔥 Populer</span>
+        </div>
+        <div class="swiper trendingSwiper">
+            <div class="swiper-wrapper" id="trendingWrapper">
+                <div class="swiper-slide">Memuat...</div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <!-- Source Switcher -->
+    <div class="source-switcher" id="sourceSwitcher"></div>
+
+    <!-- Category Tabs -->
+    <div class="category-tabs" id="categoryTabs"></div>
+
+    <!-- Video Grid -->
+    <div class="section-header">
+        <h2><i class="fas fa-video"></i> Koleksi Video</h2>
+        <span id="resultCount"></span>
+    </div>
+    <div id="videoGridContainer" class="video-grid"></div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p><i class="fas fa-database"></i> Video tersimpan di IndexedDB</p>
+        <p><i class="fab fa-youtube"></i> Data dari YouTube API</p>
+    </div>
+</footer>
+
+<!-- Modal Upload -->
+<div class="modal" id="uploadModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2><i class="fas fa-upload"></i> Upload Video</h2>
+            <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <form id="uploadForm">
+            <div class="form-group">
+                <label>Judul Video *</label>
+                <input type="text" id="videoTitle" required placeholder="Masukkan judul video">
+            </div>
+            <div class="form-group">
+                <label>Kategori</label>
+                <select id="videoCategory">
+                    <option value="anime">📺 Anime</option>
+                    <option value="action">⚔️ Action</option>
+                    <option value="fantasy">✨ Fantasy</option>
+                    <option value="romance">💖 Romance</option>
+                    <option value="movie">🎬 Movie</option>
+                    <option value="other">📁 Lainnya</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Deskripsi</label>
+                <textarea id="videoDescription" placeholder="Deskripsi video..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>File Video *</label>
+                <input type="file" id="videoFile" accept="video/mp4,video/webm,video/ogg" required>
+                <small>MP4, WebM, OGG | Maks 500MB</small>
+            </div>
+            <div class="form-group">
+                <label>Thumbnail (opsional)</label>
+                <input type="file" id="thumbnailFile" accept="image/jpeg,image/png,image/jpg">
+            </div>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancel" id="cancelUpload">Batal</button>
+                <button type="submit" class="btn-submit" id="submitUpload">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/database.js"></script>
+<script src="js/youtube-config.js"></script>
+<script src="js/youtube-api.js"></script>
+<script src="js/upload.js"></script>
+<script src="js/player.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

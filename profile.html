@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Profil - AnimeStream</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo" onclick="location.href='index.html'">
+        <i class="fas fa-tv"></i> 
+        <span>AnimeStream<span>Live</span></span>
+    </div>
+    <div class="nav-buttons">
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Kembali</a>
+    </div>
+</nav>
+
+<main class="container profile-container">
+    <section class="profile-section">
+        <h2><i class="fas fa-user-circle"></i> Akun Saya</h2>
+        <div id="profileInfo" class="profile-info">
+            <p>Memuat profil...</p>
+        </div>
+    </section>
+
+    <section class="uploads-section">
+        <div class="section-header">
+            <h3><i class="fas fa-upload"></i> Upload Saya</h3>
+            <button id="deleteAllBtn" class="btn-danger"><i class="fas fa-trash"></i> Hapus Semua</button>
+        </div>
+        <div id="myUploadsList" class="video-grid"></div>
+    </section>
+</main>
+
+<footer>
+    <p>AnimeStream - Profil Pengguna</p>
+</footer>
+
+<script src="js/database.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>
